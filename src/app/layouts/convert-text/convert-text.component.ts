@@ -48,13 +48,22 @@ export class ConvertTextComponent implements OnInit {
     if(this.inputFormat== elFormat) return;
 
     try{
-      result = this.textConverter.convert(input,this.inputFormat,elFormat);  
+      result = this.textConverter.convert(input,this.inputFormat,elFormat);
+      if(elFormat == TextConverterService.FORMAT_HEX){
+        result = result.toUpperCase();
+      }
     }
     catch(err){
       result = err;
     }
 
     el.nativeElement.value = result;
+  }
+
+  onCopyToClipboard(el:any){
+    el.focus();
+    el.select();
+    document.execCommand("copy");
   }
 
 }
