@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './layouts/main/main.component';
 import { ConvertTextComponent } from './layouts/convert-text/convert-text.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CryptographyComponent } from './layouts/cryptography/cryptography.component';
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-    ConvertTextComponent
+    ConvertTextComponent,
+    CryptographyComponent
   ],
   imports: [
     BrowserModule,
