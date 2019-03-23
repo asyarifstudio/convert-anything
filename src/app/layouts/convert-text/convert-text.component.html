@@ -1,0 +1,22 @@
+<div class="container-fluid p-5">
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <div class="form-group">
+        <label>ASCII</label>
+        <textarea #inputAscii id="{{INPUT_ID_ASCII}}" (focus)="onFocus($event.target.id)" (input)="onTextChanged($event.target.value)" class="form-control" aria-label="With textarea" rows="8" ></textarea>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="form-group">
+        <label>Hexadecimal</label>
+        <textarea #inputHex id="{{INPUT_ID_HEX}}" (focus)="onFocus($event.target.id)" (input)="onTextChanged($event.target.value)" class="form-control" aria-label="With textarea" rows="8" ></textarea>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="form-group">
+        <label>Binary</label>
+        <textarea #inputBin id="{{INPUT_ID_BIN}}" (focus)="onFocus($event.target.id)" (input)="onTextChanged($event.target.value)" class="form-control" aria-label="With textarea" rows="8" ></textarea>
+      </div>
+    </div>
+  </div>
+</div>
