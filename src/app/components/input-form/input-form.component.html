@@ -1,0 +1,14 @@
+<div class="card shadow bg-white rounded">
+  <div class="card-header">
+    {{title}}
+  </div>
+  <div class="card-body">
+    <h6 *ngIf="showLength" class="card-subtitle mb-2 text-muted">Length : {{inputForm.value.length}}</h6>
+    <div class="form-group">
+      <textarea #inputForm id="inputForm" (focus)="onFocus()"
+        (input)="onTextChanged()" class="form-control" aria-label="With textarea"
+        rows="{{line}}"></textarea>
+    </div>
+    <button *ngIf="buttonCopy" class="btn btn-sm btn-primary"  (click)="onCopyToClipboard()">Copy To Clipboard</button>
+  </div>
+</div>

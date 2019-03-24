@@ -8,56 +8,69 @@ import { TextConverterService } from 'src/app/service/text-converter/text-conver
 })
 export class ConvertTextComponent implements OnInit {
 
-  INPUT_ID_ASCII:string = "inputAscii";
-  INPUT_ID_HEX:string = "inputHex";
-  INPUT_ID_BIN:string = "inputBin";
-
-  @ViewChild("inputAscii") inputAscii: ElementRef;
-  @ViewChild("inputHex") inputHex: ElementRef;
-  @ViewChild("inputBin") inputBin: ElementRef;
+  inputForms:any[] = [];
 
   inputFormat:number;
-  constructor(private textConverter:TextConverterService) { }
+  constructor(private textConverter:TextConverterService) {
+    this.inputForms.push(
+      {
+        "id":"inputAscii",
+        "title":"ASCII",
+        "text":"",
+        "format":TextConverterService.FORMAT_ASCII
+      }
+    );
+    this.inputForms.push(
+      {
+        "id":"inputHex",
+        "title":"Hexadecimal",
+        "text":"",
+        "format":TextConverterService.FORMAT_HEX
+      }
+    );
+    this.inputForms.push(
+      {
+        "id":"inputBin",
+        "title":"Binary",
+        "text":"",
+        "format":TextConverterService.FORMAT_BIN
+      }
+    )
+  }
 
   ngOnInit() {
   }
 
   onFocus(id:string){
-    switch(id){
-      case this.INPUT_ID_ASCII:
-        this.inputFormat = TextConverterService.FORMAT_ASCII;
+    for(let form of this.inputForms){
+      if(id == form.id){
+        this.inputFormat = form.format;
         break;
-      case this.INPUT_ID_HEX:
-        this.inputFormat = TextConverterService.FORMAT_HEX;
-        break;
-      case this.INPUT_ID_BIN:
-        this.inputFormat = TextConverterService.FORMAT_BIN;
-        break;
+      }
     }
   }
 
   onTextChanged(value:string){
-
-    this.convert(this.inputAscii,TextConverterService.FORMAT_ASCII,value);
-    this.convert(this.inputHex,TextConverterService.FORMAT_HEX,value);
-    this.convert(this.inputBin,TextConverterService.FORMAT_BIN,value);
+    for(let form of this.inputForms){
+      if(this.inputFormat !=  form.format){
+        form.text = this.convert(form.format,value);
+      }
+    }
   }
 
-  convert(el:ElementRef, elFormat:number,input:string){
+  convert(format:number,input:string){
     let result:string;
-    if(this.inputFormat== elFormat) return;
 
     try{
-      result = this.textConverter.convert(input,this.inputFormat,elFormat);
-      if(elFormat == TextConverterService.FORMAT_HEX){
+      result = this.textConverter.convert(input,this.inputFormat,format);
+      if(format == TextConverterService.FORMAT_HEX){
         result = result.toUpperCase();
       }
     }
     catch(err){
       result = err;
     }
-
-    el.nativeElement.value = result;
+    return result;
   }
 
   onCopyToClipboard(el:any){

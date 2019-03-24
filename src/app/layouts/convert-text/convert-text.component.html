@@ -1,53 +1,14 @@
 <div class="container-fluid p-5">
   <div class="row">
-    <div class="col-12 col-md-4">
-      <div class="card shadow bg-white rounded">
-        <div class="card-header">
-          ASCII
-        </div>
-        <div class="card-body">
-          <h6 class="card-subtitle mb-2 text-muted">Length : {{inputAscii.value.length}}</h6>
-          <div class="form-group">
-            <textarea #inputAscii id="{{INPUT_ID_ASCII}}" (focus)="onFocus($event.target.id)"
-              (input)="onTextChanged($event.target.value)" class="form-control" aria-label="With textarea"
-              rows="8"></textarea>
-          </div>
-          <button class="btn btn-sm btn-primary"  (click)="onCopyToClipboard(inputAscii)">Copy To Clipboard</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-md-4">
-      <div class="card shadow bg-white rounded">
-        <div class="card-header">
-          Hexadecimal
-        </div>
-
-        <div class="card-body">
-          <h6 class="card-subtitle mb-2 text-muted">Length : {{inputHex.value.length}}</h6>
-          <div class="form-group">
-            <textarea #inputHex id="{{INPUT_ID_HEX}}" (focus)="onFocus($event.target.id)"
-              (input)="onTextChanged($event.target.value)" class="form-control" aria-label="With textarea"
-              rows="8"></textarea>
-          </div>
-          <button class="btn btn-sm btn-primary" (click)="onCopyToClipboard(inputHex)">Copy To Clipboard</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-md-4">
-      <div class="card shadow bg-white rounded">
-        <div class="card-header">
-          Binary
-        </div>
-        <div class="card-body">
-          <h6 class="card-subtitle mb-2 text-muted">Length : {{inputBin.value.length}}</h6>
-          <div class="form-group">
-            <textarea #inputBin id="{{INPUT_ID_BIN}}" (focus)="onFocus($event.target.id)"
-              (input)="onTextChanged($event.target.value)" class="form-control" aria-label="With textarea"
-              rows="8"></textarea>
-          </div>
-          <button class="btn btn-sm btn-primary" (click)="onCopyToClipboard(inputBin)">Copy To Clipboard</button>
-        </div>
-      </div>
+    <div class="col-12 col-md-4" *ngFor="let inputForm of inputForms">
+      <as-input-form [title]="inputForm.title" 
+                      [id]="inputForm.id" 
+                      [showLength]="true"
+                      [buttonCopy]="true"
+                      [line]="8"
+                      [text]="inputForm.text"
+                      (focus)="onFocus($event)"
+                      (textChanged)="onTextChanged($event)"></as-input-form>
     </div>
   </div>
 </div>
