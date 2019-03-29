@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { TLV } from 'src/app/service/tlv/tlv-decoder.service';
 
 @Component({
   selector: 'as-input-form',
@@ -15,8 +16,13 @@ export class InputFormComponent implements OnInit {
   @Input('buttonCopy') buttonCopy:boolean;
   @Input('line') line:number;
   @Input()
-  set text(text:string){
-    this.inputForm.nativeElement.value = text;
+  set text(text:any){
+    if(text instanceof TLV){
+      this.inputForm.nativeElement.value = text.toString();
+    }
+    else{
+      this.inputForm.nativeElement.value = text;
+    }
   } 
 
   @Output() focus = new EventEmitter<string>();
