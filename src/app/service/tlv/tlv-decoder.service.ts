@@ -22,7 +22,7 @@ export class TlvDecoderService {
   public decode(input: string): any {
     let result:any;
 
-    if (this.isTLVSequence(input)) {
+    if (!this.isTLVSequence(input)) {
       result = new TLV();
 
       result.tag = this.getTag(input);
@@ -45,7 +45,7 @@ export class TlvDecoderService {
           
           result.value.push(childTlv);
 
-          sequence = this.getNextSequence(childTlv.tag,childTlv.length,childTlv.value,sequence);
+          sequence = this.getNextSequence(childTlv,sequence);
         }
       }
 
@@ -60,8 +60,8 @@ export class TlvDecoderService {
   private isTLVSequence(input: string): boolean {
     return this.getTag(input) === TlvDecoderService.STD_TAG_SEQUENCE
   }
-  private getNextSequence(tag:string,len:string,value:string,input:string):string{
-    return input.substring(tag.length + len.length + value.length);
+  private getNextSequence(tlv:TLV,input:string):string{
+    return input.substring(tlv.toString(false).length);
   }
 
   private getTag(input: string): string {
@@ -124,7 +124,7 @@ export class TlvDecoderService {
       lenInt = parseInt(len.substring(2), 16);
     }
     else {
-      lenInt = parseInt(len);
+      lenInt = parseInt(len,16);
     }
 
     return lenInt;
@@ -144,19 +144,52 @@ export class TLV {
   primitive: boolean;
   value: any;
 
-  public toString():string{
-    let result:string = `${this.tag} ${this.length}`;
+  public toString(pretty?:boolean,level?:number):string{
+    let tab:string = "";
+    let i:number;
+
+    if(level == undefined){
+      level = 0;
+    }
+
+    //create tab
+    for(i=0;i<level;i++){
+      tab = tab+'\t';
+    }
+
+
+    let result:string;
+    if(pretty){
+      result = `${tab}${this.tag} ${this.length}`
+    }
+    else{
+      result = this.tag+this.length;
+    };
     if(this.primitive){
-      result = result.concat(` ${this.value}`);
+      if(pretty){
+        result = result.concat(` ${this.value}`);
+      }
+      else{
+        result = result + this.value;
+      }
+      
     }
     else{
       for(let child of this.value){
-        result = result.concat(`\t${child.toString()}`);
+        if(pretty){
+          result = result.concat(`\n${child.toString(pretty,level+1)}`);
+        }
+        else{
+          result = result.concat(child.toString(pretty));
+        }
+
+        
       }
     }
 
     return result;
 
   } 
+
 }
 

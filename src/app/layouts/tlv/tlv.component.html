@@ -1,0 +1,16 @@
+<div class="container-fluid p-5">
+  <div class="row" *ngFor="let inputForm of inputForms">
+    <div class="col-12 col-md-12" >
+      <as-input-form [title]="inputForm.title" 
+                      [id]="inputForm.id" 
+                      [showLength]="inputForm.showLength"
+                      [buttonCopy]="true"
+                      [line]="8"
+                      [wrap]="inputForm.wrap"
+                      [text]="inputForm.text"
+                      [editable]="inputForm.editable"
+                      (textChanged)="onTextChanged($event)"
+                      class="m-4"></as-input-form>
+    </div>
+  </div>
+</div>

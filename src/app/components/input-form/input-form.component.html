@@ -5,7 +5,7 @@
   <div class="card-body">
     <h6 *ngIf="showLength" class="card-subtitle mb-2 text-muted">Length : {{inputForm.value.length}}</h6>
     <div class="form-group">
-      <textarea #inputForm id="inputForm" (focus)="onFocus()"
+      <textarea #inputForm id="inputForm" (focus)="onFocus()" [wrap]="wrap" [disabled]="!editable"
         (input)="onTextChanged()" class="form-control" aria-label="With textarea"
         rows="{{line}}"></textarea>
     </div>

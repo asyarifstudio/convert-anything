@@ -8,13 +8,15 @@ import { ConvertTextComponent } from './layouts/convert-text/convert-text.compon
 import { ReactiveFormsModule } from '@angular/forms';
 import { CryptographyComponent } from './layouts/cryptography/cryptography.component';
 import { InputFormComponent } from './components/input-form/input-form.component';
+import { TLVComponent } from './layouts/tlv/tlv.component';
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     ConvertTextComponent,
     CryptographyComponent,
-    InputFormComponent
+    InputFormComponent,
+    TLVComponent
   ],
   imports: [
     BrowserModule,

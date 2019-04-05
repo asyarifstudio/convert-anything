@@ -15,10 +15,12 @@ export class InputFormComponent implements OnInit {
   @Input('showLength') showLength:boolean;
   @Input('buttonCopy') buttonCopy:boolean;
   @Input('line') line:number;
+  @Input('editable') editable:boolean = true;
+  @Input('wrap') wrap:string = "on"
   @Input()
   set text(text:any){
     if(text instanceof TLV){
-      this.inputForm.nativeElement.value = text.toString();
+      this.inputForm.nativeElement.value = (<TLV>text).toString(true);
     }
     else{
       this.inputForm.nativeElement.value = text;
