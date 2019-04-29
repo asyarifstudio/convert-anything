@@ -8,6 +8,7 @@
                       [line]="8"
                       [wrap]="inputForm.wrap"
                       [text]="inputForm.text"
+                      (focus)="onFocus($event)"
                       [editable]="inputForm.editable"
                       (textChanged)="onTextChanged($event)"
                       class="m-4"></as-input-form>

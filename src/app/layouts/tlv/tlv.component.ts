@@ -11,6 +11,7 @@ export class TLVComponent implements OnInit {
   inputForms:any[] = [];
 
   inputFormat:number;
+  activeForm:string;
   constructor(private TlvConverter:TlvDecoderService) {
     this.inputForms.push(
       {
@@ -27,7 +28,7 @@ export class TLVComponent implements OnInit {
         "id":"output",
         "title":"Decoded Result",
         "text":"",
-        "editable":false,
+        "editable":true,
         "showLength":false,
         "wrap":"off"
       }
@@ -38,6 +39,9 @@ export class TLVComponent implements OnInit {
   }
 
   onTextChanged(value:string){
+    if(this.activeForm != this.inputForms[0].id){
+      return;
+    }
     try{
       this.inputForms[1].text = this.TlvConverter.decode(value);
     }
@@ -46,4 +50,7 @@ export class TLVComponent implements OnInit {
     }
   }
 
+  onFocus(id:string){
+    this.activeForm = id;
+  }
 }
